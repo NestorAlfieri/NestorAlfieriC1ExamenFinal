@@ -115,26 +115,25 @@ export const ContenedorModal = styled.div`
   height: 100%;
   padding: 0 20px;
   position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 10;
+  top: 0;
+  left: 0;
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
 export const TarjetaModal = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 60%;
+  width: 80%;
+  max-width: 600px; /* Adjust max-width as needed */
   height: 60%;
-  padding: 0;
+  max-height: 80%; /* Adjust max-height as needed */
+  padding: 1rem;
   margin: 1rem;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.3);
-  transition: all 0.3s ease;
   position: relative;
 `;
 
@@ -158,21 +157,21 @@ export const CloseButton = styled.button`
 `;
 
 export const ImagenModal = styled.img`
-  width: 60%;
-  height: 100%;
+  width: auto;
+  max-height: 30%; /* Adjust max-height as needed */
+  object-fit: center;
 `;
 
 export const CotenedorTexto = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  width: 45%;
-  height: 100%;
+  align-items: center;
+  justify-content: center;
+  width: auto;
+  height: 30%;
   padding: 1rem;
-  margin-top: 5rem;
+  margin-top: 1rem;
 `;
-
 export const TituloModal = styled.h3`
   font-size: 1.5rem;
   font-weight: bold;

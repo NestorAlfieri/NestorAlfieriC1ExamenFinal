@@ -16,19 +16,25 @@ export const ContenedorCita = styled.div`
 `;
 
 export const TextoCita = styled.p`
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: #333;
-  margin: 1rem auto;
+  margin: 0;
   padding: 1rem;
   min-height: 5rem;
 `;
-
+// Define a styled component for the image
+export const ImagenCita = styled.img`
+ width: auto;
+  height: 180px;
+  border-radius: 8px; // Adjust the border-radius as needed
+  margin-bottom: 16px; // Add margin for spacing
+`;
 export const AutorCita = styled.p`
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   font-weight: bold;
   color: #333;
-  margin: 1rem auto;
+  margin: 0;
   padding: 0;
   min-height: 3rem;
 `;
@@ -40,7 +46,7 @@ export const Input = styled.input`
   border: 1px solid #ccc;
   padding: 0 20px;
   font-size: 1.5rem;
-  margin: 1rem auto;
+  margin: 0;
   font-family: "Homer Simpson Revised", sans-serif;
 `;
 

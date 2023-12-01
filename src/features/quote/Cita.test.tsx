@@ -1,37 +1,60 @@
 import { resolve } from 'path';
-import {render, screen, fireEvent, waitFor} from "../../test-utils";
+import { render, screen, fireEvent, waitFor } from "../../test-utils";
 import Cita from "./Cita";
 
-describe("Pruebas en App", () => {
-	test("Debe verificar que la cita sea del personaje ingresado", async () => {
-		render(<Cita />);
+describe("CitaTestSuite", () => {
 
-		const input = screen.getByPlaceholderText(/Ingresa el nombre del autor/i);
-		fireEvent.change(input, {target: {value: "Lisa"}});
-
-		const boton = await screen.findByText(/Obtener Cita/i);
-    fireEvent.click(boton);
-    
-    await waitFor(() => {
-      expect(screen.getByText(/Lisa Simpson/i)).toBeInTheDocument()
-    });
-
+  beforeEach(() => {
+    render(
+      <Cita />
+    );
   });
-  
-  test('Obtener cita aleatoria', async() => {
-    render(<Cita />);
 
+  test('no debería mostrar ninguna cita', () => {
+    const noQuoteMessage = screen.queryByText('No se encontro ninguna cita');
+    expect(noQuoteMessage).toBeInTheDocument();
+  });
+ 
+  test("Debe verificar que la cita sea de Moe", async () => {
+    const input = screen.getByPlaceholderText(/Ingresa el nombre del autor/i);
+    fireEvent.change(input, { target: { value: "Moe" } });   
     const boton = await screen.findByText(/Obtener Cita/i);
     fireEvent.click(boton);
-    
-    // Esperar por un intervalo de tiempo con una promesa
-    // await Promise.resolve(setTimeout(resolve, 3000));
+    await waitFor(() => {
+      expect(screen.getByText(/Moe/i)).toBeInTheDocument()
+    });   
+  });
 
+  test('Obtener cita aleatoria', async () => {
+    const boton = await screen.findByText(/Obtener Cita/i);
+    fireEvent.click(boton);
     await waitFor(() => {
       expect(screen.getByText(/Homer Simpson/i)).toBeInTheDocument()
     });
-
-    screen.debug();
-  
   })
+  test('debería mostrar CARGANDO...', async () => {
+    const botonCitaAleatoria = screen.getByText(/Obtener cita aleatoria/i);
+    fireEvent.click(botonCitaAleatoria);
+    const loadingMessage = screen.getByText('CARGANDO...');
+    await waitFor(() => {
+      expect(loadingMessage).toBeInTheDocument()
+    });
+  });
+  test('debería mostrar cita', async () => {
+    const botonCitaAleatoria = screen.getByText(/Obtener cita aleatoria/i);
+    fireEvent.click(botonCitaAleatoria);
+    const cita = await screen.findByText(/Marriage is like a coffin and each kid is another nail/i);
+    await waitFor(() => {
+      expect(cita).toBeInTheDocument()
+    });
+  });
+
+  test('debería mostrar mensaje de error con input numérico', async () => {
+    const inputField = screen.getByPlaceholderText(/Ingresa el nombre del autor/i);
+    fireEvent.change(inputField, { target: { value: '5' } });
+    const botonCita = await screen.findByText(/Obtener Cita/i);
+    fireEvent.click(botonCita);
+    const invalidMessage = await screen.findByText(/Por favor ingrese un nombre válido/i);
+    await waitFor(() => expect(invalidMessage).toBeInTheDocument());
+  });
 });

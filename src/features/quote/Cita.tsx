@@ -1,7 +1,8 @@
+import React from 'react';
 import { useState } from "react";
 import { shallowEqual } from "react-redux";
-import { Boton, Input, AutorCita, ContenedorCita, TextoCita } from "./styled";
-import { useAppSelector, useAppDispatch } from "../../app/hooks";
+import { Boton, Input, AutorCita, ContenedorCita, TextoCita, ImagenCita } from "./styled";
+import { useAppSelector, useAppDispatch } from "../../app/hooks/hooks";
 import {
   obtenerCitaDelEstado,
   limpiar,
@@ -12,7 +13,7 @@ import { obtenerMensaje } from "./utils";
 
 function Cita() {
   const [valorInput, setValorInput] = useState("");
-  const { cita = "", personaje = "" } =
+  const { cita = "", personaje = "", imagen = '' } =
     useAppSelector(obtenerCitaDelEstado, shallowEqual) || {};
   const estadoPedido = useAppSelector(obtenerEstadoDelPedido);
 
@@ -27,7 +28,10 @@ function Cita() {
 
   return (
     <ContenedorCita>
+      <ImagenCita src={imagen} alt={personaje} />
       <TextoCita>{obtenerMensaje(cita, estadoPedido)}</TextoCita>
+      {/* Display the character's image */}
+      
       <AutorCita>{personaje}</AutorCita>
       <Input
         aria-label="Author Cita"
